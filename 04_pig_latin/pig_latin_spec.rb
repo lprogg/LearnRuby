@@ -68,5 +68,28 @@ describe "#translate" do
   # Test-driving bonus:
   # * write a test asserting that capitalized words are still capitalized (but with a different initial capital letter, of course)
   # * retain the punctuation from the original phrase
+end
 
+describe "capitalize" do
+  it "retains capitalized words" do
+    s = capitalize("Square")
+    s.should == "Aresquay"
+  end
+
+  it "retains capitalized words" do
+    s = capitalize("School")
+    s.should == "Oolschay"
+  end
+
+  it "retains capitalized words" do
+    s = capitalize("The Quick brown fox")
+    s.should == "Ethay Ickquay ownbray oxfay"
+  end
+end
+
+describe "punctuation" do
+  it "retains punctuation" do
+    s = punctuation("The Quick brown, fox")
+    s.should == "Ethay Ickquay ownbray, oxfay"
+  end
 end
