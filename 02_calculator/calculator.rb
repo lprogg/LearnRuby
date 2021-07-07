@@ -21,11 +21,11 @@ def multiply(*args)
 end
 
 def power(first_arg, second_arg)
-  first_arg ** second_arg
+  first_arg**second_arg
 end
 
 def factorial(n)
-  if n == 0
+  if n.zero?
     1
   else
     n * factorial(n - 1)
