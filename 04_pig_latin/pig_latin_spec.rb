@@ -72,24 +72,24 @@ end
 
 describe "capitalize" do
   it "retains capitalized words" do
-    s = capitalize("Square")
-    s.should == "Aresquay"
+    capitalize_method = capitalize("Square")
+    capitalize_method.should == "Aresquay"
   end
 
   it "retains capitalized words" do
-    s = capitalize("School")
-    s.should == "Oolschay"
+    capitalize_method = capitalize("School")
+    capitalize_method.should == "Oolschay"
   end
 
   it "retains capitalized words" do
-    s = capitalize("The Quick brown fox")
-    s.should == "Ethay Ickquay ownbray oxfay"
+    capitalize_method = capitalize("The Quick brown fox")
+    capitalize_method.should == "Ethay Ickquay ownbray oxfay"
   end
 end
 
 describe "punctuation" do
   it "retains punctuation" do
-    s = punctuation("The Quick brown, fox")
-    s.should == "Ethay Ickquay ownbray, oxfay"
+    punctuation_method = punctuation("The Quick brown, fox")
+    punctuation_method.should == "Ethay Ickquay ownbray, oxfay"
   end
 end
