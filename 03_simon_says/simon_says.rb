@@ -22,7 +22,7 @@ def titleize(str)
   str.capitalize!
   words_no_cap = %w[and over the]
 
-  str.split(' ').map do |item|
+  str.split.map do |item|
     if words_no_cap.include?(item)
       item
     else
