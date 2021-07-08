@@ -19,5 +19,5 @@ def first_word(str)
 end
 
 def titleize(str)
-  str.capitalize!.split.map { |item| %w[and over the].include?(item) ? item : item.capitalize }.join(' ')
+  str.capitalize.split.map { |item| %w[and over the].include?(item) ? item : item.capitalize }.join(' ')
 end
