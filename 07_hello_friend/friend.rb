@@ -1,6 +1,5 @@
 class Friend
   def greeting(str = '')
-    greet = 'Hello'
-    str.empty? ? "#{greet}!" : "#{greet}, #{str}!"
+    str.empty? ? 'Hello!' : "Hello, #{str}!"
   end
 end
