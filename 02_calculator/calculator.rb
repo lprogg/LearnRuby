@@ -7,17 +7,11 @@ def subtract(first_arg, second_arg)
 end
 
 def sum(arg)
-  if arg.empty?
-    0
-  else
-    arg.sum
-  end
+  arg.empty? ? 0 : arg.sum
 end
 
 def multiply(*args)
-  result = 1
-  args.each { |arg| result *= arg }
-  result
+  args.inject(:*)
 end
 
 def power(first_arg, second_arg)
@@ -25,9 +19,5 @@ def power(first_arg, second_arg)
 end
 
 def factorial(n)
-  if n.zero?
-    1
-  else
-    n * factorial(n - 1)
-  end
+  n.zero? ? 1 : n * factorial(n - 1)
 end
