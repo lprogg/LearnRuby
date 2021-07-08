@@ -6,11 +6,6 @@ class Book
   end
 
   def capitalize_title(str)
-    str.capitalize!
-    words_no_cap = %w[and in the of a an]
-
-    str.split.map { |item|
-      words_no_cap.include?(item) ? item : item.capitalize
-    }.join(' ')
+    str.capitalize!.split.map { |item| %w[and in the of a an].include?(item) ? item : item.capitalize }.join(' ')
   end
 end
