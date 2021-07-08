@@ -17,9 +17,7 @@ def translate(str)
 end
 
 def capitalize(str)
-  str.split.map { |item|
-    item == item.capitalize ? translate(item).capitalize : translate(item)
-  }.join(' ')
+  str.split.map { |item| item == item.capitalize ? translate(item).capitalize : translate(item) }.join(' ')
 end
 
 def punctuation(str)
