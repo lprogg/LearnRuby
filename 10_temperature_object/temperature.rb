@@ -36,14 +36,5 @@ class Temperature
   end
 end
 
-class Celsius < Temperature
-  def initialize(arg)
-    super({c: arg})
-  end
-end
-
-class Fahrenheit < Temperature
-  def initialize(arg)
-    super({f: arg})
-  end
-end
+require 'celsius'
+require 'fahrenheit'
