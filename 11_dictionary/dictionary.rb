@@ -26,4 +26,10 @@ class Dictionary
   def find(arg)
     Regexp.new(arg).then { |regexp| @hash.select { |item| item =~ regexp } }
   end
+
+  def printable
+    ''
+      .then { |str| str << keywords.each_with_object(nil) { |item| str << "[#{item}] \"#{@hash[item]}\"\n" }.to_s }
+      .strip
+  end
 end
