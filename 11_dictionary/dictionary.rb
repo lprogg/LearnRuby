@@ -24,11 +24,6 @@ class Dictionary
   end
 
   def find(arg)
-    temp = {}
-    if @hash == {} || arg == 'nothing'
-      {}
-    elsif @hash.key?(arg)
-      @hash
-    end
+    Regexp.new(arg).then { |regexp| @hash.select { |item| item =~ regexp } }
   end
 end
