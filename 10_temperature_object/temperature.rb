@@ -20,18 +20,10 @@ class Temperature
   end
 
   def in_celsius
-    if @temp_hash.key?(:c)
-      @temp_hash[:c]
-    else
-      Temperature.ftoc(@temp_hash[:f])
-    end
+    @temp_hash[:c] || Temperature.ftoc(@temp_hash[:f])
   end
 
   def in_fahrenheit
-    if @temp_hash.key?(:f)
-      @temp_hash[:f]
-    else
-      Temperature.ctof(@temp_hash[:c])
-    end
+    @temp_hash[:f] || Temperature.ctof(@temp_hash[:c])
   end
 end
