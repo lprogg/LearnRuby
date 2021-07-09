@@ -16,7 +16,7 @@ class Dictionary
   end
 
   def keywords
-    @hash.keys
+    @hash.keys.sort
   end
 
   def include?(arg)
