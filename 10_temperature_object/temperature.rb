@@ -35,6 +35,3 @@ class Temperature
     end
   end
 end
-
-require 'celsius'
-require 'fahrenheit'

@@ -17,7 +17,7 @@
 #
 #
 
-require "temperature"
+require 'main'
 
 describe Temperature do
 
