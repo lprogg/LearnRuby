@@ -17,7 +17,9 @@
 #
 #
 
-require "temperature"
+require 'temperature'
+require 'celsius'
+require 'fahrenheit'
 
 describe Temperature do
 
