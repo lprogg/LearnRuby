@@ -39,4 +39,32 @@ class RPNCalculator
       raise 'calculator is empty'
     end
   end
+
+  def divide
+    if @stack.length >= 2
+      @total += (@stack.last(2)[0].to_f / @stack.last(2)[1])
+      @stack.pop(2)
+      @total
+    elsif @stack.length.equal?(1)
+      @total /= @stack[0]
+      @stack.pop(1)
+      @total
+    elsif @stack.empty?
+      raise 'calculator is empty'
+    end
+  end
+
+  def times
+    if @stack.length >= 2
+      @total += @stack.last(2).inject(:*)
+      @stack.pop(2)
+      @total
+    elsif @stack.length.equal?(1)
+      @total *= @stack[0]
+      @stack.pop(1)
+      @total
+    elsif @stack.empty?
+      raise 'calculator is empty'
+    end
+  end
 end
