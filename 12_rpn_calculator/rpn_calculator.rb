@@ -17,7 +17,7 @@ class RPNCalculator
       @total += @stack.last(2).sum
       @stack.pop(2)
       @total
-    elsif @stack.length.equal?(1)
+    elsif @stack.length == 1
       @total += @stack[0]
       @stack.pop(1)
       @total
@@ -31,7 +31,7 @@ class RPNCalculator
       @total += (@stack.last(2)[0] - @stack.last(2)[1])
       @stack.pop(2)
       @total
-    elsif @stack.length.equal?(1)
+    elsif @stack.length == 1
       @total -= @stack[1]
       @stack.pop(1)
       @total
@@ -45,7 +45,7 @@ class RPNCalculator
       @total += (@stack.last(2)[0].to_f / @stack.last(2)[1])
       @stack.pop(2)
       @total
-    elsif @stack.length.equal?(1)
+    elsif @stack.length == 1
       @total /= @stack[0]
       @stack.pop(1)
       @total
@@ -59,7 +59,7 @@ class RPNCalculator
       @total += @stack.last(2).inject(:*)
       @stack.pop(2)
       @total
-    elsif @stack.length.equal?(1)
+    elsif @stack.length == 1
       @total *= @stack[0]
       @stack.pop(1)
       @total
@@ -70,5 +70,24 @@ class RPNCalculator
 
   def tokens(string)
     string.split.map { |item| item =~ /[0-9]+/ ? item.to_i : item.to_sym }
+  end
+
+  def evaluate(string)
+    @total = 0
+    @stack = []
+
+    return string.to_f unless string.include?(' ')
+
+    string =~ %r{(-?\d) (-?\d) ([-+*/])(?!\d)}
+
+    result = if Regexp.last_match(3) == '/'
+               Regexp.last_match(1).to_f.send(Regexp.last_match(3), Regexp.last_match(2).to_f)
+             else
+               Regexp.last_match(1).to_i.send(Regexp.last_match(3), Regexp.last_match(2).to_i)
+             end
+
+    string.gsub!([Regexp.last_match(1), Regexp.last_match(2), Regexp.last_match(3)].join(' '), result.to_s )
+
+    evaluate(string)
   end
 end
