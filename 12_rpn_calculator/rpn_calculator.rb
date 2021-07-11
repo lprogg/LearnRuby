@@ -4,8 +4,8 @@ class RPNCalculator
     @total = 0
   end
 
-  def push(arg)
-    @stack << arg
+  def push(number)
+    @stack << number
   end
 
   def value
@@ -66,5 +66,9 @@ class RPNCalculator
     elsif @stack.empty?
       raise 'calculator is empty'
     end
+  end
+
+  def tokens(string)
+    string.split.map { |item| item =~ /[0-9]+/ ? item.to_i : item.to_sym }
   end
 end
