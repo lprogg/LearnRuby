@@ -8,4 +8,8 @@ class Array
   def square
     empty? ? [] : map { |item| item**2 }
   end
+
+  def square!
+    empty? ? [] : map! { |item| item**2 }
+  end
 end
