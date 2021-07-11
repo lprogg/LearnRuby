@@ -1,5 +1,9 @@
 class XmlDocument
-  def hello
-    "<hello/>"
+  def hello(tag = '')
+    'hello'.then { |item| tag.empty? ? "<#{item}/>" : "<#{item} name=\'#{tag[:name]}\'/>" }
+  end
+
+  def send(tag)
+    "<#{tag}/>"
   end
 end
