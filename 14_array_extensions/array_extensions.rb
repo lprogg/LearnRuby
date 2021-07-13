@@ -1,8 +1,6 @@
 class Array
   def sum
-    s = 0
-    empty? ? s = 0 : each { |item| s += item }
-    s
+    empty? ? 0 : inject(:+)
   end
 
   def square
