@@ -1,9 +1,9 @@
 class XmlDocument
-  def hello(tag = '', &block)
+  def hello(tag = '')
     name = 'hello'
-
+    
     if block_given?
-      "<#{name}>#{block.()}</#{name}>"
+      "<#{name}>#{yield}</#{name}>"
     else
       tag.empty? ? "<#{name}/>" : "<#{name} name='#{tag[:name]}'/>"
     end
