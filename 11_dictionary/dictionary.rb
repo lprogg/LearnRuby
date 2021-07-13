@@ -20,16 +20,16 @@ class Dictionary
   end
 
   def include?(arg)
-    @hash.key?(arg) ? true : false
+    @hash.key?(arg)
   end
 
   def find(arg)
-    Regexp.new(arg).then { |regexp| @hash.select { |item| item =~ regexp } }
+    /#{arg}/.then { |regexp| @hash.select { |item| item =~ regexp } }
   end
 
   def printable
     ''
-      .then { |str| str << keywords.each_with_object(nil) { |item| str << "[#{item}] \"#{@hash[item]}\"\n" }.to_s }
+      .then { keywords.map { |item| "[#{item}] \"#{@hash[item]}\"\n" }.join }
       .strip
   end
 end
