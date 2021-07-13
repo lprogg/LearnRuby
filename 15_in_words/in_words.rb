@@ -30,8 +30,17 @@ class Fixnum
     90 => 'ninety'
   }.freeze
 
+  POWERS_OF_TEN = {
+    2 => 'hundred',
+    3 => 'thousand',
+    6 => 'million',
+    9 => 'billion',
+    12 => 'trillion'
+  }.freeze
+
   ONES = 0..9
   TENS = 10..99
+  HUNDREDS = 100..999
 
   def in_words
     case self
@@ -39,6 +48,8 @@ class Fixnum
       ones(self)
     when TENS
       tens(self)
+    when HUNDREDS
+      hundreds(self)
     end
   end
 
@@ -51,5 +62,22 @@ class Fixnum
     return unless TENS.include?(arg)
 
     TO_WORDS.include?(arg) ? TO_WORDS[arg] : "#{tens(arg / 10 * 10)} #{ones(arg % 10)}"
+  end
+
+  def hundreds(arg)
+    return unless HUNDREDS.include?(arg)
+
+    num_hundreds = arg / 100
+    num_tens = arg - num_hundreds * 100
+    num_tens = 0 if num_tens < 10
+    num_ones = arg % 10
+
+    if num_tens.zero? && num_ones.zero?
+      "#{TO_WORDS[num_hundreds]} #{POWERS_OF_TEN[2]}".strip
+    elsif num_tens.zero?
+      "#{TO_WORDS[num_hundreds]} #{POWERS_OF_TEN[2]} #{ones(num_ones)}".strip
+    else
+      "#{TO_WORDS[num_hundreds]} #{POWERS_OF_TEN[2]} #{tens(num_tens)}".strip
+    end
   end
 end
