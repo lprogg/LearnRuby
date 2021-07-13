@@ -37,10 +37,11 @@ class Fixnum
     9 => 'billion',
     12 => 'trillion'
   }.freeze
-
+  
   ONES = 0..9
   TENS = 10..99
   HUNDREDS = 100..999
+  THOUSANDS = 1_000..999_999
 
   def in_words
     case self
@@ -50,6 +51,8 @@ class Fixnum
       tens(self)
     when HUNDREDS
       hundreds(self)
+    when THOUSANDS
+      thousands(self)
     end
   end
 
@@ -79,5 +82,40 @@ class Fixnum
     else
       "#{TO_WORDS[num_hundreds]} #{POWERS_OF_TEN[2]} #{tens(num_tens)}".strip
     end
+  end
+
+  def thousands(arg)
+    num_word = []
+    num_array = arg.to_s.split('').map(&:to_i)
+
+    flag = 0
+    until num_array.empty?
+      chunk = num_array.pop(3).join.to_i
+      case flag
+      when 0
+        case chunk
+        when 0
+          num_word.unshift('')
+        when ONES
+          num_word.unshift(ones(chunk))
+        when TENS
+          num_word.unshift(tens(chunk))
+        when HUNDREDS
+          num_word.unshift(hundreds(chunk))
+        end
+      when 1
+        case chunk
+        when ONES
+          num_word.unshift("#{ones(chunk)} #{POWERS_OF_TEN[3]}")
+        when TENS
+          num_word.unshift("#{tens(chunk)} #{POWERS_OF_TEN[3]}")
+        when HUNDREDS
+          num_word.unshift("#{hundreds(chunk)} #{POWERS_OF_TEN[3]}")
+        end
+      end
+      flag += 1
+    end
+
+    num_word.join(' ').strip
   end
 end
