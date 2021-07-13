@@ -37,11 +37,12 @@ class Fixnum
     9 => 'billion',
     12 => 'trillion'
   }.freeze
-  
+
   ONES = 0..9
   TENS = 10..99
   HUNDREDS = 100..999
   THOUSANDS = 1_000..999_999
+  MILLIONS = 1_000_000..999_999_999
 
   def in_words
     case self
@@ -53,6 +54,8 @@ class Fixnum
       hundreds(self)
     when THOUSANDS
       thousands(self)
+    when MILLIONS
+      millions(self)
     end
   end
 
@@ -90,27 +93,70 @@ class Fixnum
 
     flag = 0
     until num_array.empty?
-      chunk = num_array.pop(3).join.to_i
+      slice_of_digits = num_array.pop(3).join.to_i
       case flag
       when 0
-        case chunk
+        case slice_of_digits
         when 0
-          num_word.unshift('')
         when ONES
-          num_word.unshift(ones(chunk))
+          num_word.unshift(ones(slice_of_digits))
         when TENS
-          num_word.unshift(tens(chunk))
+          num_word.unshift(tens(slice_of_digits))
         when HUNDREDS
-          num_word.unshift(hundreds(chunk))
+          num_word.unshift(hundreds(slice_of_digits))
         end
       when 1
-        case chunk
+        case slice_of_digits
         when ONES
-          num_word.unshift("#{ones(chunk)} #{POWERS_OF_TEN[3]}")
+          num_word.unshift("#{ones(slice_of_digits)} #{POWERS_OF_TEN[3]}")
         when TENS
-          num_word.unshift("#{tens(chunk)} #{POWERS_OF_TEN[3]}")
+          num_word.unshift("#{tens(slice_of_digits)} #{POWERS_OF_TEN[3]}")
         when HUNDREDS
-          num_word.unshift("#{hundreds(chunk)} #{POWERS_OF_TEN[3]}")
+          num_word.unshift("#{hundreds(slice_of_digits)} #{POWERS_OF_TEN[3]}")
+        end
+      end
+      flag += 1
+    end
+
+    num_word.join(' ').strip
+  end
+
+  def millions(arg)
+    num_word = []
+    num_array = arg.to_s.split('').map(&:to_i)
+
+    flag = 0
+    until num_array.empty?
+      slice_of_digits = num_array.pop(3).join.to_i
+      case flag
+      when 0
+        case slice_of_digits
+        when 0
+        when ONES
+          num_word.unshift(ones(slice_of_digits))
+        when TENS
+          num_word.unshift(tens(slice_of_digits))
+        when HUNDREDS
+          num_word.unshift(hundreds(slice_of_digits))
+        end
+      when 1
+        case slice_of_digits
+        when 0
+        when ONES
+          num_word.unshift("#{ones(slice_of_digits)} #{POWERS_OF_TEN[3]}")
+        when TENS
+          num_word.unshift("#{tens(slice_of_digits)} #{POWERS_OF_TEN[3]}")
+        when HUNDREDS
+          num_word.unshift("#{hundreds(slice_of_digits)} #{POWERS_OF_TEN[3]}")
+        end
+      when 2
+        case slice_of_digits
+        when ONES
+          num_word.unshift("#{ones(slice_of_digits)} #{POWERS_OF_TEN[6]}")
+        when TENS
+          num_word.unshift("#{tens(slice_of_digits)} #{POWERS_OF_TEN[6]}")
+        when HUNDREDS
+          num_word.unshift("#{hundreds(slice_of_digits)} #{POWERS_OF_TEN[6]}")
         end
       end
       flag += 1
