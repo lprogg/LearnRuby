@@ -1,4 +1,6 @@
 class RPNCalculator
+  REGEXP = %r{(-?\d) (-?\d) ([-+*/])(?!\d)}
+
   def initialize
     @stack = []
     @total = 0
@@ -73,12 +75,7 @@ class RPNCalculator
   end
 
   def evaluate(string)
-    @total = 0
-    @stack = []
-
-    return string.to_f unless string.include?(' ')
-
-    string =~ %r{(-?\d) (-?\d) ([-+*/])(?!\d)}
+    return string.to_f unless string.include?(' ') && string =~ REGEXP
 
     result = if Regexp.last_match(3) == '/'
                Regexp.last_match(1).to_f.send(Regexp.last_match(3), Regexp.last_match(2).to_f)
@@ -86,7 +83,7 @@ class RPNCalculator
                Regexp.last_match(1).to_i.send(Regexp.last_match(3), Regexp.last_match(2).to_i)
              end
 
-    string.gsub!([Regexp.last_match(1), Regexp.last_match(2), Regexp.last_match(3)].join(' '), result.to_s )
+    string.gsub!([Regexp.last_match(1), Regexp.last_match(2), Regexp.last_match(3)].join(' '), result.to_s)
 
     evaluate(string)
   end
