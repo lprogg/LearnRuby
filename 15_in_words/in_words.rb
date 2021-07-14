@@ -43,7 +43,6 @@ class Fixnum
   TENS = 10..99
   HUNDREDS = 100..999
 
-
   def in_words
     case self
     when ONES
@@ -76,12 +75,14 @@ class Fixnum
     num_tens = 0 if num_tens < 10
     num_ones = arg % 10
 
-    if num_tens.zero? && num_ones.zero?
-      "#{TO_WORDS[num_hundreds]} #{POWERS_OF_TEN[2]}".strip
-    elsif num_tens.zero?
-      "#{TO_WORDS[num_hundreds]} #{POWERS_OF_TEN[2]} #{ones(num_ones)}".strip
+    process_hundreds(num_tens, num_ones, TO_WORDS[num_hundreds], POWERS_OF_TEN[2], ones(num_ones), tens(num_tens))
+  end
+
+  def process_hundreds(num_tens, num_ones, to_words, powers_of_ten, ones_process, tens_process)
+    if num_tens.zero?
+      num_ones.zero? ? "#{to_words} #{powers_of_ten}".strip : "#{to_words} #{powers_of_ten} #{ones_process}".strip
     else
-      "#{TO_WORDS[num_hundreds]} #{POWERS_OF_TEN[2]} #{tens(num_tens)}".strip
+      "#{to_words} #{powers_of_ten} #{tens_process}".strip
     end
   end
 
@@ -98,7 +99,7 @@ class Fixnum
 
     num_word.join(' ').strip
   end
-
+  
   private
 
   def process_chunk_of_three(num_word, slice_of_digits, powers_of_ten = '')
